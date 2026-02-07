@@ -315,6 +315,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const blogPosts = [
     {
+      slug: '2026.02.13_sanfilippo_syndrome',
+      title: 'Sanfilippo Syndrome and Why I Started Paying Attention',
+      category: 'Biotech',
+      date: '2026-02-13',
+      description:
+        'A reflection on the brutal reality of MPS III, the technical hurdles of crossing the blood-brain barrier'
+    },
+    {
+      slug: '2026.02.10_prediction_markets',
+      title: 'Prediction Markets in 2026: Boom, Backlash, and a New Kind of Betting Frontier',
+      category: 'Finance',
+      date: '2026-02-10',
+      description:
+        'A deep dive into the 2026 landscape of "Information Finance," exploring the high-stakes rivalry between Polymarket and Kalshi'
+    },
+    {
+      slug: '2026.02.08_jerome_powell_fed_chair',
+      title: 'Was Jerome Powell a Good Fed Chair?',
+      category: 'Finance',
+      date: '2026-02-08',
+      description:
+        'A reflection on Jerome Powell\s time as chairman of the Federal Reserve'
+    },
+    {
       slug: '2026.02.06_elevedys_and_duchenne',
       title: 'Elevydis and Duchenne',
       category: 'Biotech',
