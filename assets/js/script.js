@@ -320,23 +320,39 @@ document.addEventListener('DOMContentLoaded', function() {
       category: 'Biotech',
       date: '2026-02-06',
       description:
-        'A look at Elevydis (delandistrogene moxeparvovec) and its role in Duchenne muscular dystrophy.'
+        'A look at Elevydis (delandistrogene moxeparvovec) and its role in Duchenne muscular dystrophy'
     },
     {
-      slug: 'dcf-analysis-guide',
-      title: 'DCF Analysis: A Comprehensive Guide',
+      slug: '2024.08.08_chase_sapphire_preferred',
+      title: 'Why the Chase Sapphire Preferred is my Next Credit Card Choice',
       category: 'Finance',
       date: '2024-02-03',
       description:
-        'Deep dive into discounted cash flow analysis and its application in equity valuation.'
+        'A look into some of the perks of the Chase Sapphire Preferred'
     },
     {
-      slug: 'sports-analytics-pipeline',
-      title: 'Building a Sports Analytics Pipeline',
+      slug: '2024.06.25_theory_of_computation',
+      title: 'Conquering the Beast: My Journey Through the Theory of Computation',
       category: 'Programming',
       date: '2024-01-28',
       description:
-        'How I built an automated data pipeline for NCAA baseball analytics using Python.'
+        'This course was not just a test of my intellectual limits but also a transformative experience that reshaped my understanding of computer science'
+    },
+    {
+      slug: '2024.06.21_apple_wwdc_24',
+      title: 'Reflecting on WWDC 2024',
+      category: 'Tech',
+      date: '2024-01-28',
+      description:
+        'Some thoughts on the 2024 rendition of Apple\'s Worldwide Developers Conference'
+    },
+    {
+      slug: '2024.06.18.first_post',
+      title: 'Welcome to My Website!',
+      category: 'General',
+      date: '2024-01-28',
+      description:
+        'Welcome to My Website!'
     }
     // add more here as you create posts
   ];
