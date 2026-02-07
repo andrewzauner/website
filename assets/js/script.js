@@ -168,7 +168,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     selectItems.forEach(function(item) {
       item.addEventListener('click', function() {
-        const selectedCategory = this.dataset.category || this.innerText.toLowerCase().trim();
+        const selectedCategory =
+          this.dataset.category || this.innerText.toLowerCase().trim();
         selectValue.innerText = this.innerText;
         elementToggle(select);
         filterFunc(selectedCategory);
@@ -181,7 +182,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   filterBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
-      const selectedCategory = this.dataset.category || this.innerText.toLowerCase().trim();
+      const selectedCategory =
+        this.dataset.category || this.innerText.toLowerCase().trim();
 
       if (selectValue) {
         selectValue.innerText = this.innerText;
@@ -243,17 +245,20 @@ document.addEventListener('DOMContentLoaded', function() {
     '.service-item, .timeline-item, .skills-item, .blog-post-item'
   );
 
-  const revealObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  });
+  const revealObserver = new IntersectionObserver(
+    function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    }
+  );
 
   revealElements.forEach(function(el) {
     el.style.opacity = '0';
@@ -296,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // ========================================
-  // Blog Posts Loader
+  // Blog Posts Loader + Modal
   // ========================================
 
   const blogPostsList = document.getElementById('blog-posts-list');
@@ -308,110 +313,38 @@ document.addEventListener('DOMContentLoaded', function() {
   const blogModalDate = document.getElementById('blogModalDate');
   const blogModalBody = document.getElementById('blogModalBody');
 
-  const sampleBlogPosts = [
+  const blogPosts = [
     {
-      title: "Getting Started with Machine Learning in Finance",
-      category: "Machine Learning",
-      date: "2024-01-15",
-      description: "Exploring the fundamentals of applying ML algorithms to financial modeling and prediction.",
-      content: `
-        <p>Machine learning has revolutionized the financial industry, enabling more accurate predictions and automated decision-making processes. In this post, we'll explore the fundamentals of applying ML algorithms to financial modeling.</p>
-
-        <h3>Why Machine Learning in Finance?</h3>
-        <p>The financial markets generate massive amounts of data every second. Traditional statistical methods often struggle to capture the complex, non-linear relationships present in this data. Machine learning excels at:</p>
-        <ul>
-          <li>Pattern recognition in large datasets</li>
-          <li>Handling non-linear relationships</li>
-          <li>Adapting to changing market conditions</li>
-          <li>Processing alternative data sources</li>
-        </ul>
-
-        <h3>Common ML Applications in Finance</h3>
-        <p>Here are some popular use cases:</p>
-        <ul>
-          <li><strong>Algorithmic Trading:</strong> Using models to identify trading opportunities</li>
-          <li><strong>Credit Risk Assessment:</strong> Predicting loan default probabilities</li>
-          <li><strong>Fraud Detection:</strong> Identifying suspicious transactions</li>
-          <li><strong>Portfolio Optimization:</strong> Maximizing returns while managing risk</li>
-        </ul>
-
-        <h3>Getting Started</h3>
-        <p>If you're interested in exploring ML for finance, I recommend starting with Python libraries like <code>scikit-learn</code>, <code>pandas</code>, and <code>numpy</code>. These tools provide a solid foundation for building your first models.</p>
-
-        <p>Stay tuned for more posts where I'll dive deeper into specific algorithms and their applications!</p>
-      `
+      slug: '2026.02.06_elevedys_and_duchenne',
+      title: 'Elevydis and Duchenne',
+      category: 'Biotech',
+      date: '2026-02-06',
+      description:
+        'A look at Elevydis (delandistrogene moxeparvovec) and its role in Duchenne muscular dystrophy.'
     },
     {
-      title: "DCF Analysis: A Comprehensive Guide",
-      category: "Finance",
-      date: "2024-02-03",
-      description: "Deep dive into discounted cash flow analysis and its application in equity valuation.",
-      content: `
-        <p>Discounted Cash Flow (DCF) analysis is one of the most fundamental valuation methods in finance. It estimates the value of an investment based on its expected future cash flows.</p>
-
-        <h3>The Core Concept</h3>
-        <p>The principle behind DCF is simple: a dollar today is worth more than a dollar tomorrow. By discounting future cash flows to their present value, we can determine what a company or investment is truly worth.</p>
-
-        <h3>Key Components</h3>
-        <ul>
-          <li><strong>Free Cash Flow (FCF):</strong> The cash a company generates after accounting for capital expenditures</li>
-          <li><strong>Discount Rate (WACC):</strong> The weighted average cost of capital, reflecting the company's risk</li>
-          <li><strong>Terminal Value:</strong> The value of cash flows beyond the projection period</li>
-          <li><strong>Growth Rate:</strong> Expected perpetual growth rate of the business</li>
-        </ul>
-
-        <h3>The Formula</h3>
-        <p>The basic DCF formula is:</p>
-        <pre><code>PV = CF₁/(1+r)¹ + CF₂/(1+r)² + ... + CFₙ/(1+r)ⁿ + TV/(1+r)ⁿ</code></pre>
-
-        <h3>Practical Considerations</h3>
-        <p>While DCF is powerful, it's important to remember that it's highly sensitive to assumptions. Small changes in growth rates or discount rates can significantly impact valuations. Always perform sensitivity analysis to understand the range of possible outcomes.</p>
-      `
+      slug: 'dcf-analysis-guide',
+      title: 'DCF Analysis: A Comprehensive Guide',
+      category: 'Finance',
+      date: '2024-02-03',
+      description:
+        'Deep dive into discounted cash flow analysis and its application in equity valuation.'
     },
     {
-      title: "Building a Sports Analytics Pipeline",
-      category: "Programming",
-      date: "2024-01-28",
-      description: "How I built an automated data pipeline for NCAA baseball analytics using Python.",
-      content: `
-        <p>Sports analytics has become increasingly data-driven, and building efficient data pipelines is crucial for timely insights. Here's how I built an automated system for NCAA baseball analytics.</p>
-
-        <h3>The Architecture</h3>
-        <p>My pipeline consists of three main components:</p>
-        <ul>
-          <li><strong>Data Collection:</strong> Web scraping and API integration</li>
-          <li><strong>Data Processing:</strong> Cleaning, transformation, and feature engineering</li>
-          <li><strong>Analysis & Visualization:</strong> Statistical modeling and dashboard creation</li>
-        </ul>
-
-        <h3>Tech Stack</h3>
-        <p>I chose Python for its rich ecosystem of data science libraries:</p>
-        <ul>
-          <li><code>pandas</code> for data manipulation</li>
-          <li><code>BeautifulSoup</code> and <code>Selenium</code> for web scraping</li>
-          <li><code>PostgreSQL</code> for data storage</li>
-          <li><code>Apache Airflow</code> for workflow orchestration</li>
-          <li><code>Plotly</code> and <code>Dash</code> for interactive visualizations</li>
-        </ul>
-
-        <h3>Key Learnings</h3>
-        <p>Building this pipeline taught me several important lessons:</p>
-        <ul>
-          <li>Always validate your data sources - inconsistencies are common</li>
-          <li>Build in error handling and logging from day one</li>
-          <li>Modular code makes debugging and scaling much easier</li>
-          <li>Documentation is crucial when you revisit code months later</li>
-        </ul>
-
-        <h3>Results</h3>
-        <p>The automated pipeline now processes data daily, providing insights into player performance trends, team statistics, and predictive modeling for upcoming games. It's been an invaluable learning experience in building production-ready data systems.</p>
-      `
+      slug: 'sports-analytics-pipeline',
+      title: 'Building a Sports Analytics Pipeline',
+      category: 'Programming',
+      date: '2024-01-28',
+      description:
+        'How I built an automated data pipeline for NCAA baseball analytics using Python.'
     }
+    // add more here as you create posts
   ];
 
-  function openBlogModal(post) {
+  async function openBlogModal(post) {
     if (!blogModal) return;
 
+    // Set title / meta
     blogModalTitle.textContent = post.title;
     blogModalCategory.textContent = post.category;
 
@@ -424,7 +357,34 @@ document.addEventListener('DOMContentLoaded', function() {
     blogModalDate.textContent = formattedDate;
     blogModalDate.setAttribute('datetime', post.date);
 
-    blogModalBody.innerHTML = post.content;
+    try {
+      // Fetch the HTML for the post
+      const res = await fetch(`/posts/${post.slug}.html`);
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
+      const html = await res.text();
+
+      // Parse and extract the article body
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      // Prefer [data-blog-body], fallback to <main> or <article>, then body
+      const articleEl =
+        doc.querySelector('[data-blog-body]') ||
+        doc.querySelector('main') ||
+        doc.querySelector('article') ||
+        doc.body;
+
+      blogModalBody.innerHTML = articleEl.innerHTML;
+    } catch (err) {
+      console.error('Error loading blog post:', err);
+      blogModalBody.innerHTML = `
+        <p>Sorry, there was a problem loading this post.</p>
+        <p><code>${err.message}</code></p>
+      `;
+    }
 
     blogModal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -436,8 +396,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.style.overflow = '';
   }
 
+  // Render blog list
   if (blogPostsList) {
-    sampleBlogPosts.forEach(function(post) {
+    blogPosts.forEach(function(post) {
       const li = document.createElement('li');
       li.classList.add('blog-post-item');
 
@@ -462,9 +423,9 @@ document.addEventListener('DOMContentLoaded', function() {
         '</a>';
 
       const link = li.querySelector('.blog-post-link');
-      link.addEventListener('click', function(e) {
+      link.addEventListener('click', async function(e) {
         e.preventDefault();
-        openBlogModal(post);
+        await openBlogModal(post);
       });
 
       blogPostsList.appendChild(li);
@@ -478,16 +439,24 @@ document.addEventListener('DOMContentLoaded', function() {
       item.style.transition =
         'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), ' +
         'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-      revealObserver.observe(item);
+      revealObserver && revealObserver.observe(item);
     });
   }
 
+  // Modal close handlers
   if (blogModalClose) {
-    blogModalClose.addEventListener('click', closeBlogModal);
+    blogModalClose.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeBlogModal();
+    });
   }
 
   if (blogModalOverlay) {
-    blogModalOverlay.addEventListener('click', closeBlogModal);
+    blogModalOverlay.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeBlogModal();
+    });
   }
 
   document.addEventListener('keydown', function(e) {
@@ -547,15 +516,19 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
 
   let scrollTimeout;
-  window.addEventListener('scroll', function() {
-    if (scrollTimeout) {
-      window.cancelAnimationFrame(scrollTimeout);
-    }
+  window.addEventListener(
+    'scroll',
+    function() {
+      if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+      }
 
-    scrollTimeout = window.requestAnimationFrame(function() {
-      // Scroll-based animations handled by IntersectionObserver
-    });
-  }, { passive: true });
+      scrollTimeout = window.requestAnimationFrame(function() {
+        // Scroll-based animations handled by IntersectionObserver
+      });
+    },
+    { passive: true }
+  );
 
   // Reduce motion for users who prefer it
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -574,9 +547,20 @@ document.addEventListener('DOMContentLoaded', function() {
   // Console Easter Egg
   // ========================================
 
-  console.log('%c👨‍💻 Hello, Developer!', 'font-size: 20px; color: #6366f1; font-weight: bold;');
-  console.log('%cWelcome to Andrew Zauner\'s Portfolio', 'font-size: 14px; color: #3b82f6;');
-  console.log('%cBuilt with ❤️ using HTML, CSS, and JavaScript', 'font-size: 12px; color: #94a3b8;');
-  console.log('%cInterested in collaboration? Let\'s connect!', 'font-size: 12px; color: #8b5cf6;');
-
+  console.log(
+    '%c👨‍💻 Hello, Developer!',
+    'font-size: 20px; color: #6366f1; font-weight: bold;'
+  );
+  console.log(
+    "%cWelcome to Andrew Zauner's Portfolio",
+    'font-size: 14px; color: #3b82f6;'
+  );
+  console.log(
+    '%cBuilt with ❤️ using HTML, CSS, and JavaScript',
+    'font-size: 12px; color: #94a3b8;'
+  );
+  console.log(
+    "%cInterested in collaboration? Let's connect!",
+    'font-size: 12px; color: #8b5cf6;'
+  );
 });
