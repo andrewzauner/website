@@ -15,6 +15,7 @@
   --neon-cyan: #06b6d4;
   --neon-purple: #8b5cf6;
   --neon-indigo: #6366f1;
+  --neon-green: #22c55e; /* added so it isn't undefined */
   
   /* Text colors */
   --text-primary: #e8f0ff;
@@ -948,6 +949,13 @@ address {
   animation: fillProgress 2s ease-out forwards;
 }
 
+.skills-item h5 {
+  color: var(--neon-indigo);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+
 @keyframes fillProgress {
   from {
     width: 0 !important;
@@ -1067,24 +1075,22 @@ address {
   gap: 20px;
 }
 
+/* CRITICAL CHANGE: don't use display:none for animated items */
 .project-item {
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(0.95);
 }
 
 .project-item.active {
-  display: block;
-  animation: scaleUp 0.5s var(--transition-bounce) forwards;
-}
-
-@keyframes scaleUp {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1);
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .project-item > a {
@@ -1096,6 +1102,8 @@ address {
   transition: all var(--transition-smooth);
   position: relative;
   overflow: hidden;
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 .project-item > a::before {
@@ -1185,6 +1193,8 @@ address {
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all var(--transition-smooth);
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 .blog-post-item > a:hover {

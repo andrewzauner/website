@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   // Utility Functions
   // ========================================
-  
+
   function elementToggle(elem) {
     if (elem) elem.classList.toggle('active');
   }
@@ -12,12 +12,16 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   // Particle Background Animation
   // ========================================
-  
+
   const canvas = document.getElementById('particleCanvas');
+
   if (canvas) {
     const ctx = canvas.getContext('2d');
     let particles = [];
-    let animationId;
+    let animationId = null;
+    let resizeTimeout = null;
+
+    const MAX_PARTICLES = 120; // keep it visually rich but bounded
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -52,15 +56,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function initParticles() {
       particles = [];
-      const particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 100);
+      const particleCount = Math.min(
+        MAX_PARTICLES,
+        Math.floor((canvas.width * canvas.height) / 15000)
+      );
+
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
       }
     }
 
     function drawConnections() {
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
+      const len = particles.length;
+
+      for (let i = 0; i < len; i++) {
+        for (let j = i + 1; j < len; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
@@ -80,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach(particle => {
+      particles.forEach(function(particle) {
         particle.update();
         particle.draw();
       });
@@ -89,20 +99,29 @@ document.addEventListener('DOMContentLoaded', function() {
       animationId = requestAnimationFrame(animate);
     }
 
+    // Initial setup
     resizeCanvas();
     initParticles();
     animate();
 
+    // Debounced resize
     window.addEventListener('resize', function() {
-      resizeCanvas();
-      initParticles();
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+
+      resizeTimeout = setTimeout(function() {
+        resizeCanvas();
+        initParticles();
+      }, 150);
     });
 
-    // Pause animation when tab is not visible
+    // Pause / resume on tab visibility
     document.addEventListener('visibilitychange', function() {
       if (document.hidden) {
-        cancelAnimationFrame(animationId);
-      } else {
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+      } else if (!animationId) {
         animate();
       }
     });
@@ -111,10 +130,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   // Sidebar Toggle
   // ========================================
-  
+
   const sidebar = document.querySelector('[data-sidebar]');
   const sidebarBtn = document.querySelector('[data-sidebar-btn]');
-  
+
   if (sidebar && sidebarBtn) {
     sidebarBtn.addEventListener('click', function() {
       elementToggle(sidebar);
@@ -124,23 +143,20 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   // Portfolio Filter
   // ========================================
-  
+
   const select = document.querySelector('[data-select]');
   const selectItems = document.querySelectorAll('[data-select-item]');
   const selectValue = document.querySelector('[data-selecct-value]');
   const filterBtns = document.querySelectorAll('[data-filter-btn]');
   const filterItems = document.querySelectorAll('[data-filter-item]');
 
-  function filterFunc(selectedValue) {
+  function filterFunc(selectedCategory) {
+    const value = (selectedCategory || 'all').toLowerCase().trim();
+
     filterItems.forEach(function(item) {
-      const category = item.dataset.category;
-      const match = selectedValue === 'all' || selectedValue === category;
-      
-      if (match) {
-        item.classList.add('active');
-      } else {
-        item.classList.remove('active');
-      }
+      const category = (item.dataset.category || '').toLowerCase().trim();
+      const match = value === 'all' || value === category;
+      item.classList.toggle('active', match);
     });
   }
 
@@ -152,23 +168,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
     selectItems.forEach(function(item) {
       item.addEventListener('click', function() {
-        const selectedValue = this.innerText.toLowerCase();
+        const selectedCategory = this.dataset.category || this.innerText.toLowerCase().trim();
         selectValue.innerText = this.innerText;
         elementToggle(select);
-        filterFunc(selectedValue);
+        filterFunc(selectedCategory);
       });
     });
   }
 
   // Desktop filter buttons
-  let lastClickedBtn = filterBtns[0];
-  
+  let lastClickedBtn = filterBtns[0] || null;
+
   filterBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
-      const selectedValue = this.innerText.toLowerCase();
-      if (selectValue) selectValue.innerText = this.innerText;
-      filterFunc(selectedValue);
-      
+      const selectedCategory = this.dataset.category || this.innerText.toLowerCase().trim();
+
+      if (selectValue) {
+        selectValue.innerText = this.innerText;
+      }
+
+      filterFunc(selectedCategory);
+
       if (lastClickedBtn) lastClickedBtn.classList.remove('active');
       this.classList.add('active');
       lastClickedBtn = this;
@@ -178,11 +198,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   // Contact Form Validation
   // ========================================
-  
+
   const form = document.querySelector('[data-form]');
   const formInputs = document.querySelectorAll('[data-form-input]');
   const formBtn = document.querySelector('[data-form-btn]');
-  
+
   if (form && formBtn) {
     formInputs.forEach(function(input) {
       input.addEventListener('input', function() {
@@ -194,23 +214,23 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   // Page Navigation
   // ========================================
-  
+
   const navigationLinks = document.querySelectorAll('[data-nav-link]');
   const pages = document.querySelectorAll('[data-page]');
-  
+
   navigationLinks.forEach(function(link) {
     link.addEventListener('click', function() {
       const targetPage = this.innerHTML.toLowerCase().trim();
-      
+
       pages.forEach(function(page, j) {
         const isActive = page.dataset.page === targetPage;
         page.classList.toggle('active', isActive);
-        
+
         if (navigationLinks[j]) {
           navigationLinks[j].classList.toggle('active', isActive);
         }
       });
-      
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
@@ -218,9 +238,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   // Scroll Reveal Animations
   // ========================================
-  
-  const revealElements = document.querySelectorAll('.service-item, .timeline-item, .skills-item, .project-item, .blog-post-item');
-  
+
+  const revealElements = document.querySelectorAll(
+    '.service-item, .timeline-item, .skills-item, .blog-post-item'
+  );
+
   const revealObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
@@ -236,22 +258,38 @@ document.addEventListener('DOMContentLoaded', function() {
   revealElements.forEach(function(el) {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+    el.style.transition =
+      'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), ' +
+      'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
     revealObserver.observe(el);
   });
 
   // ========================================
   // Project Card Mouse Follow Effect
   // ========================================
-  
+
   const projectLinks = document.querySelectorAll('.project-item > a');
-  
+
   projectLinks.forEach(function(link) {
+    let rect = null;
+
+    function updateRect() {
+      rect = link.getBoundingClientRect();
+    }
+
+    // Cache rect initially and on resize/scroll
+    updateRect();
+    window.addEventListener('resize', updateRect);
+    window.addEventListener('scroll', updateRect);
+
+    link.addEventListener('mouseenter', updateRect);
+
     link.addEventListener('mousemove', function(e) {
-      const rect = this.getBoundingClientRect();
+      if (!rect) updateRect();
+
       const x = ((e.clientX - rect.left) / rect.width) * 100;
       const y = ((e.clientY - rect.top) / rect.height) * 100;
-      
+
       this.style.setProperty('--mouse-x', x + '%');
       this.style.setProperty('--mouse-y', y + '%');
     });
@@ -260,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   // Blog Posts Loader
   // ========================================
-  
+
   const blogPostsList = document.getElementById('blog-posts-list');
   const blogModal = document.getElementById('blogModal');
   const blogModalOverlay = document.getElementById('blogModalOverlay');
@@ -270,7 +308,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const blogModalDate = document.getElementById('blogModalDate');
   const blogModalBody = document.getElementById('blogModalBody');
 
-  // Sample blog posts data (you can replace this with fetch from JSON)
   const sampleBlogPosts = [
     {
       title: "Getting Started with Machine Learning in Finance",
@@ -279,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
       description: "Exploring the fundamentals of applying ML algorithms to financial modeling and prediction.",
       content: `
         <p>Machine learning has revolutionized the financial industry, enabling more accurate predictions and automated decision-making processes. In this post, we'll explore the fundamentals of applying ML algorithms to financial modeling.</p>
-        
+
         <h3>Why Machine Learning in Finance?</h3>
         <p>The financial markets generate massive amounts of data every second. Traditional statistical methods often struggle to capture the complex, non-linear relationships present in this data. Machine learning excels at:</p>
         <ul>
@@ -371,11 +408,13 @@ document.addEventListener('DOMContentLoaded', function() {
       `
     }
   ];
-  
+
   function openBlogModal(post) {
+    if (!blogModal) return;
+
     blogModalTitle.textContent = post.title;
     blogModalCategory.textContent = post.category;
-    
+
     const date = new Date(post.date);
     const formattedDate = date.toLocaleDateString('en-US', {
       year: 'numeric',
@@ -384,31 +423,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     blogModalDate.textContent = formattedDate;
     blogModalDate.setAttribute('datetime', post.date);
-    
+
     blogModalBody.innerHTML = post.content;
-    
+
     blogModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
 
   function closeBlogModal() {
+    if (!blogModal) return;
     blogModal.classList.remove('active');
     document.body.style.overflow = '';
   }
 
   if (blogPostsList) {
-    // Use sample data for now - you can replace with fetch from JSON
     sampleBlogPosts.forEach(function(post) {
       const li = document.createElement('li');
       li.classList.add('blog-post-item');
-      
+
       const date = new Date(post.date);
       const formattedDate = date.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric'
       });
-      
+
       li.innerHTML =
         '<a href="#" class="blog-post-link">' +
           '<div class="blog-content">' +
@@ -421,28 +460,28 @@ document.addEventListener('DOMContentLoaded', function() {
             '<p class="blog-text">' + post.description + '</p>' +
           '</div>' +
         '</a>';
-      
-      // Add click event to open modal
+
       const link = li.querySelector('.blog-post-link');
       link.addEventListener('click', function(e) {
         e.preventDefault();
         openBlogModal(post);
       });
-      
+
       blogPostsList.appendChild(li);
     });
 
-    // Apply scroll reveal to blog posts
+    // Apply scroll reveal to newly added blog items as well
     const blogItems = blogPostsList.querySelectorAll('.blog-post-item');
     blogItems.forEach(function(item) {
       item.style.opacity = '0';
       item.style.transform = 'translateY(20px)';
-      item.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+      item.style.transition =
+        'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), ' +
+        'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
       revealObserver.observe(item);
     });
   }
 
-  // Modal close handlers
   if (blogModalClose) {
     blogModalClose.addEventListener('click', closeBlogModal);
   }
@@ -451,7 +490,6 @@ document.addEventListener('DOMContentLoaded', function() {
     blogModalOverlay.addEventListener('click', closeBlogModal);
   }
 
-  // Close modal on Escape key
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && blogModal && blogModal.classList.contains('active')) {
       closeBlogModal();
@@ -461,15 +499,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   // Typing Effect for Code Brackets
   // ========================================
-  
+
   const codeBrackets = document.querySelectorAll('.code-bracket');
-  
+
   codeBrackets.forEach(function(bracket) {
     bracket.style.display = 'inline-block';
     bracket.style.animation = 'blink 1s step-end infinite';
   });
 
-  // Add blink animation for code brackets
   const style = document.createElement('style');
   style.textContent = `
     @keyframes blink {
@@ -482,20 +519,20 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   // Smooth Skill Bar Animation on Scroll
   // ========================================
-  
+
   const skillBars = document.querySelectorAll('.skill-progress-fill');
-  
+
   const skillObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         const bar = entry.target;
         const targetWidth = bar.style.width;
         bar.style.width = '0%';
-        
+
         setTimeout(function() {
           bar.style.width = targetWidth;
         }, 100);
-        
+
         skillObserver.unobserve(bar);
       }
     });
@@ -508,14 +545,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========================================
   // Performance Optimization
   // ========================================
-  
-  // Throttle scroll events
+
   let scrollTimeout;
   window.addEventListener('scroll', function() {
     if (scrollTimeout) {
       window.cancelAnimationFrame(scrollTimeout);
     }
-    
+
     scrollTimeout = window.requestAnimationFrame(function() {
       // Scroll-based animations handled by IntersectionObserver
     });
@@ -527,18 +563,17 @@ document.addEventListener('DOMContentLoaded', function() {
       el.style.animation = 'none';
       el.style.transition = 'none';
     });
-    
-    // Stop particle animation
+
     if (canvas) {
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const ctxReduce = canvas.getContext('2d');
+      ctxReduce.clearRect(0, 0, canvas.width, canvas.height);
     }
   }
 
   // ========================================
   // Console Easter Egg
   // ========================================
-  
+
   console.log('%c👨‍💻 Hello, Developer!', 'font-size: 20px; color: #6366f1; font-weight: bold;');
   console.log('%cWelcome to Andrew Zauner\'s Portfolio', 'font-size: 14px; color: #3b82f6;');
   console.log('%cBuilt with ❤️ using HTML, CSS, and JavaScript', 'font-size: 12px; color: #94a3b8;');
