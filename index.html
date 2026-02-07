@@ -5,57 +5,56 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Andrew Zauner</title>
+  <title>Andrew Zauner - Data Engineer & Developer</title>
 
-  <!--
-    - favicon
-  -->
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
 
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style.css">
-
-  <!--
-    - google fonts
-  -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
 
-  <div class="bg-orbs" aria-hidden="true"></div>
-
-  <!--
-    - #MAIN
-  -->
+  <!-- Animated background -->
+  <div class="bg-wrapper">
+    <div class="bg-grid"></div>
+    <canvas id="particleCanvas"></canvas>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+  </div>
 
   <main>
 
-    <!--
-      - #SIDEBAR
-    -->
-
+    <!-- SIDEBAR -->
     <aside class="sidebar" data-sidebar>
 
       <div class="sidebar-info">
 
         <figure class="avatar-box">
           <img src="./assets/images/my-avatar.png" alt="Andrew Zauner" width="80">
+          <div class="avatar-glow"></div>
         </figure>
 
         <div class="info-content">
-          <h1 class="name" title="Andrew Zauner">Andrew Zauner</h1>
+          <h1 class="name" title="Andrew Zauner">
+            <span class="code-bracket">&lt;</span>Andrew Zauner<span class="code-bracket">/&gt;</span>
+          </h1>
 
-          <p class="title">Finance - Computer Science</p>
+          <p class="title">
+            <span class="terminal-prompt">$</span> Finance × Computer Science
+          </p>
         </div>
  
         <button class="info_more-btn" data-sidebar-btn>
           <span>Show Contacts</span>
-
           <ion-icon name="chevron-down"></ion-icon>
         </button>
 
@@ -68,46 +67,33 @@
         <ul class="contacts-list">
 
           <li class="contact-item">
-
             <div class="icon-box">
               <ion-icon name="mail-outline"></ion-icon>
             </div>
-
             <div class="contact-info">
               <p class="contact-title">Email</p>
-
-              <a href="mailto:andrew_zauner@yahoo.com" class="contact-link">andrew_zauner@yahoo.com</a>
+              <a href="mailto:azauner@albion.edu" class="contact-link">azauner@albion.edu</a>
             </div>
-
           </li>
 
           <li class="contact-item">
-
             <div class="icon-box">
               <ion-icon name="phone-portrait-outline"></ion-icon>
             </div>
-
             <div class="contact-info">
               <p class="contact-title">Phone</p>
-
               <a href="tel:+18104128163" class="contact-link">+1 (810) 412-8163</a>
             </div>
-
           </li>
 
-
           <li class="contact-item">
-
             <div class="icon-box">
               <ion-icon name="location-outline"></ion-icon>
             </div>
-
             <div class="contact-info">
               <p class="contact-title">Location</p>
-
               <address>Metro Detroit, Michigan, USA</address>
             </div>
-
           </li>
 
         </ul>
@@ -115,85 +101,56 @@
         <div class="separator"></div>
 
         <ul class="social-list">
-
           <li class="social-item">
-            <a href="https://www.linkedin.com/in/andrew-zauner-b46227223/" class="social-link">
+            <a href="https://www.linkedin.com/in/andrew-zauner-b46227223/" class="social-link" target="_blank" rel="noopener">
               <ion-icon name="logo-linkedin"></ion-icon>
             </a>
           </li>
-
           <li class="social-item">
-            <a href="https://x.com/DrewZauner" class="social-link">
+            <a href="https://x.com/DrewZauner" class="social-link" target="_blank" rel="noopener">
               <ion-icon name="logo-twitter"></ion-icon>
             </a>
           </li>
-
           <li class="social-item">
-            <a href="https://www.instagram.com/drewzauner?igsh=N2VxdHd1NnQ1enJl&utm_source=qr" class="social-link">
+            <a href="https://www.instagram.com/drewzauner?igsh=N2VxdHd1NnQ1enJl&utm_source=qr" class="social-link" target="_blank" rel="noopener">
               <ion-icon name="logo-instagram"></ion-icon>
             </a>
           </li>
-
         </ul>
 
       </div>
 
     </aside>
 
-
-
-
-
-    <!--
-      - #main-content
-    -->
-
+    <!-- MAIN CONTENT -->
     <div class="main-content">
 
-      <!--
-        - #NAVBAR
-      -->
-
+      <!-- NAVBAR -->
       <nav class="navbar">
-
         <ul class="navbar-list">
-
           <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
+            <button class="navbar-link active" data-nav-link>About</button>
           </li>
-
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Resume</button>
           </li>
-
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Portfolio</button>
           </li>
-
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Blog</button>
           </li>
-
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Contact</button>
           </li>
-
         </ul>
-
       </nav>
 
-
-
-
-
-      <!--
-        - #ABOUT
-      -->
-
-      <article class="about  active" data-page="about">
+      <!-- ABOUT -->
+      <article class="about active" data-page="about">
 
         <header>
-          <h2 class="h2 article-title">About</h2>
+          <h2 class="h2 article-title">About Me</h2>
         </header>
 
         <section class="about-text">
@@ -222,78 +179,59 @@
         </p>
         </section>
 
-        <!--
-          - service
-        -->
-
+        <!-- Services -->
         <section class="service">
 
-          <h3 class="h3 service-title">What i'm doing</h3>
+          <h3 class="h3 service-title">What I'm Doing</h3>
 
           <ul class="service-list">
 
             <li class="service-item">
-
               <div class="service-icon-box">
                 <img src="./assets/images/icon-consulting.svg" alt="Consulting icon" width="40">
               </div>
-
               <div class="service-content-box">
                 <h4 class="h4 service-item-title">Analytics Consulting</h4>
-
                 <p class="service-item-text">
                   Working full-time as an analytics consultant across several industries.
                 </p>
               </div>
-
             </li>
 
             <li class="service-item">
-
               <div class="service-icon-box">
                 <img src="./assets/images/icon-ml.svg" alt="Machine Learning icon" width="40">
               </div>
-
               <div class="service-content-box">
                 <h4 class="h4 service-item-title">Machine Learning</h4>
-
                 <p class="service-item-text">
                   Using artificial intelligence to model sports, investor sentiment, and more.
                 </p>
               </div>
-
             </li>
 
             <li class="service-item">
-
               <div class="service-icon-box">
-                <img src="./assets/images/icon-dcf.svg" alt="mobile app icon" width="40">
+                <img src="./assets/images/icon-dcf.svg" alt="DCF icon" width="40">
               </div>
-
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">DCF</h4>
-
+                <h4 class="h4 service-item-title">DCF Analysis</h4>
                 <p class="service-item-text">
                   Creating discounted cashflow analysis models for various securities.
                 </p>
               </div>
-
             </li>
 
             <li class="service-item">
-
               <div class="service-icon-box">
-                <img src="./assets/images/icon-tutor.svg" alt="camera icon" width="40">
+                <img src="./assets/images/icon-tutor.svg" alt="Tutoring icon" width="40">
               </div>
-
               <div class="service-content-box">
                 <h4 class="h4 service-item-title">Tutoring</h4>
-
                 <p class="service-item-text">
                   Assisting in students' learning over a range of topics.
                 </p>
               </div>
-
             </li>
 
           </ul>
@@ -302,74 +240,12 @@
 
       </article>
 
-
-
-      <!--
-        - #RESUME
-      -->
-
+      <!-- RESUME -->
       <article class="resume" data-page="resume">
 
         <header>
           <h2 class="h2 article-title">Resume</h2>
         </header>
-
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="briefcase-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Work</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Consultant </h4>
-
-              <span>Present</span>
-
-              <p class="timeline-text">
-                Plante Moran | Business Analytics
-              </p>
-
-            </li>
-
-
-
-          <li class="timeline-item">
-
-            <h4 class="h4 timeline-item-title">Tutor</h4>
-
-            <span>Present</span>
-
-            <p class="timeline-text">
-              Finance, computer science, economics, math, accounting
-            </p>
-
-            </li>
-  
-
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Consulting Intern </h4>
-
-              <span>2023</span>
-
-              <p class="timeline-text">
-                Plante Moran | Business Analytics
-              </p>
-
-            </li>
-
-
-        </ol>
-        </section>  
 
         <section class="timeline">
 
@@ -377,132 +253,109 @@
             <div class="icon-box">
               <ion-icon name="book-outline"></ion-icon>
             </div>
-
             <h3 class="h3">Education</h3>
           </div>
 
           <ol class="timeline-list">
 
             <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Albion College </h4>
-
-              <span>2020-2024</span>
-
+              <h4 class="h4 timeline-item-title">Albion College</h4>
+              <span>2020 — 2024</span>
               <p class="timeline-text">
-                Summa Cum Laude |
-                BA, Finance | 
-                Computer Science, Data Analytics
+                Bachelor of Arts in Economics & Management<br>
+                Minor in Computer Science<br>
+                GPA: 3.62/4.0
               </p>
-
             </li>
-
 
           </ol>
 
         </section>
+
         <section class="timeline">
 
           <div class="title-wrapper">
             <div class="icon-box">
-              <ion-icon name="ribbon-outline"></ion-icon>
+              <ion-icon name="briefcase-outline"></ion-icon>
             </div>
-
-            <h3 class="h3">Certifications</h3>
+            <h3 class="h3">Experience</h3>
           </div>
-          <ol class="timeline-list">
-          <li class="timeline-item">
-            
 
-            <h4 class="h4 timeline-item-title">Alteryx Designer Core Certification </h4>
-            </li>
+          <ol class="timeline-list">
+
             <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">Power BI Essential Training </h4>
+              <h4 class="h4 timeline-item-title">Analytics Consultant - Deloitte</h4>
+              <span>2024 — Present</span>
+              <p class="timeline-text">
+                Working on analytics projects across various industries, implementing data-driven solutions and business intelligence strategies.
+              </p>
             </li>
-            
-          <li class="timeline-item">
-            <h4 class="h4 timeline-item-title">Querying Microsoft SQL Server</h4>
-          </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Teaching Assistant - Albion College</h4>
+              <span>2022 — 2024</span>
+              <p class="timeline-text">
+                Assisted students in finance and computer science courses, conducted study sessions, and provided one-on-one tutoring.
+              </p>
+            </li>
+
           </ol>
-          
 
         </section>
 
         <section class="skill">
 
-          <h3 class="h3 skills-title">My skillset</h3>
+          <h3 class="h3 skills-title">My Skills</h3>
 
           <ul class="skills-list content-card">
 
             <li class="skills-item">
-
               <div class="title-wrapper">
-                <h5 class="h5">Finance</h5>
+                <h5 class="h5">Financial Modeling</h5>
                 <data value="30">30%</data>
               </div>
-
               <div class="skill-progress-bg">
                 <div class="skill-progress-fill" style="width: 30%;"></div>
               </div>
-
             </li>
 
             <li class="skills-item">
-
               <div class="title-wrapper">
                 <h5 class="h5">Data Analytics</h5>
                 <data value="30">30%</data>
               </div>
-
               <div class="skill-progress-bg">
                 <div class="skill-progress-fill" style="width: 30%;"></div>
               </div>
-
             </li>
 
             <li class="skills-item">
-
               <div class="title-wrapper">
                 <h5 class="h5">Business Intelligence</h5>
                 <data value="25">25%</data>
               </div>
-
               <div class="skill-progress-bg">
                 <div class="skill-progress-fill" style="width: 25%;"></div>
               </div>
-
             </li>
 
             <li class="skills-item">
-
               <div class="title-wrapper">
                 <h5 class="h5">Programming</h5>
                 <data value="15">15%</data>
               </div>
-
               <div class="skill-progress-bg">
                 <div class="skill-progress-fill" style="width: 15%;"></div>
               </div>
-
             </li>
 
         </ul>
-          
-
-          </section>
 
         </section>
 
       </article>
 
-
-
-
-
-      <!--
-        - #PORTFOLIO
-      -->
-
+      <!-- PORTFOLIO -->
       <article class="portfolio" data-page="portfolio">
 
         <header>
@@ -512,152 +365,133 @@
         <section class="projects">
 
           <ul class="filter-list">
-
             <li class="filter-item">
               <button class="active" data-filter-btn>All</button>
             </li>
-
             <li class="filter-item">
               <button data-filter-btn>Finance</button>
             </li>
-
             <li class="filter-item">
               <button data-filter-btn>Programming</button>
             </li>
-
             <li class="filter-item">
               <button data-filter-btn>Machine Learning</button>
             </li>
-
           </ul>
 
           <div class="filter-select-box">
-
             <button class="filter-select" data-select>
-
               <div class="select-value" data-selecct-value>Select category</div>
-
               <div class="select-icon">
                 <ion-icon name="chevron-down"></ion-icon>
               </div>
-
             </button>
 
             <ul class="select-list">
-
               <li class="select-item">
                 <button data-select-item>All</button>
               </li>
-
               <li class="select-item">
                 <button data-select-item>Finance</button>
               </li>
-
               <li class="select-item">
                 <button data-select-item>Programming</button>
               </li>
-
               <li class="select-item">
                 <button data-select-item>Machine Learning</button>
               </li>
-
             </ul>
-
           </div>
 
           <ul class="project-list">
 
-            <li class="project-item  active" data-filter-item data-category="programming">
-              <a href="https://github.com/AndrewZauner/racket-interpreter">
-
-
-
+            <li class="project-item active" data-filter-item data-category="programming">
+              <a href="https://github.com/AndrewZauner/racket-interpreter" target="_blank" rel="noopener">
+                <div class="project-icon">
+                  <ion-icon name="code-slash-outline"></ion-icon>
+                </div>
                 <h3 class="project-title">Racket Interpreter</h3>
-
                 <p class="project-category">Programming</p>
-
               </a>
             </li>
 
-            <li class="project-item  active" data-filter-item data-category="finance">
+            <li class="project-item active" data-filter-item data-category="finance">
               <a href="#">
-
-
+                <div class="project-icon">
+                  <ion-icon name="trending-up-outline"></ion-icon>
+                </div>
                 <h3 class="project-title">TSLA Model</h3>
-
                 <p class="project-category">Finance</p>
-
               </a>
             </li>
 
-            <li class="project-item  active" data-filter-item data-category="finance">
+            <li class="project-item active" data-filter-item data-category="finance">
               <a href="#">
-
-
+                <div class="project-icon">
+                  <ion-icon name="trending-up-outline"></ion-icon>
+                </div>
                 <h3 class="project-title">AAPL Model</h3>
-
                 <p class="project-category">Finance</p>
-
               </a>
             </li>
 
-            <li class="project-item  active" data-filter-item data-category="machine learning">
+            <li class="project-item active" data-filter-item data-category="machine learning">
               <a href="#">
-
+                <div class="project-icon">
+                  <ion-icon name="analytics-outline"></ion-icon>
+                </div>
                 <h3 class="project-title">MLB Model</h3>
-
                 <p class="project-category">Machine Learning</p>
-
               </a>
             </li>
 
-            <li class="project-item  active" data-filter-item data-category="machine learning">
-              <a href="https://github.com/AndrewZauner/credit-risk/tree/main">
-
+            <li class="project-item active" data-filter-item data-category="machine learning">
+              <a href="https://github.com/AndrewZauner/credit-risk/tree/main" target="_blank" rel="noopener">
+                <div class="project-icon">
+                  <ion-icon name="analytics-outline"></ion-icon>
+                </div>
                 <h3 class="project-title">Loan Default Model</h3>
-
                 <p class="project-category">Machine Learning</p>
-
               </a>
             </li>
 
-            <li class="project-item  active" data-filter-item data-category="finance">
+            <li class="project-item active" data-filter-item data-category="finance">
               <a href="#">
-
+                <div class="project-icon">
+                  <ion-icon name="trending-up-outline"></ion-icon>
+                </div>
                 <h3 class="project-title">SNOW Model</h3>
-
                 <p class="project-category">Finance</p>
-
               </a>
             </li>
 
-            <li class="project-item  active" data-filter-item data-category="programming">
+            <li class="project-item active" data-filter-item data-category="programming">
               <a href="#">
-
+                <div class="project-icon">
+                  <ion-icon name="code-slash-outline"></ion-icon>
+                </div>
                 <h3 class="project-title">Python Calendar</h3>
-
                 <p class="project-category">Programming</p>
-
               </a>
             </li>
 
-            <li class="project-item  active" data-filter-item data-category="programming">
+            <li class="project-item active" data-filter-item data-category="programming">
               <a href="#">
-
+                <div class="project-icon">
+                  <ion-icon name="code-slash-outline"></ion-icon>
+                </div>
                 <h3 class="project-title">NCAA Baseball Analytics</h3>
-
                 <p class="project-category">Programming</p>
-
               </a>
             </li>
 
-            <li class="project-item  active" data-filter-item data-category="finance">
+            <li class="project-item active" data-filter-item data-category="finance">
               <a href="#">
-
+                <div class="project-icon">
+                  <ion-icon name="trending-up-outline"></ion-icon>
+                </div>
                 <h3 class="project-title">MSFT Model</h3>
-
                 <p class="project-category">Finance</p>
-
               </a>
             </li>
 
@@ -667,14 +501,7 @@
 
       </article>
 
-
-
-
-
-      <!--
-        - #BLOG
-      -->
-
+      <!-- BLOG -->
       <article class="blog" data-page="blog">
         <header>
           <h2 class="h2 article-title">Blog</h2>
@@ -685,16 +512,8 @@
           </ul>
         </section>
       </article>
-      
 
-
-
-
-
-      <!--
-        - #CONTACT
-      -->
-
+      <!-- CONTACT -->
       <article class="contact" data-page="contact">
 
         <header>
@@ -715,7 +534,6 @@
 
             <div class="input-wrapper">
               <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-
               <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
             </div>
 
@@ -736,22 +554,28 @@
 
   </main>
 
+  <!-- Blog Post Modal -->
+  <div class="blog-modal" id="blogModal">
+    <div class="blog-modal-overlay" id="blogModalOverlay"></div>
+    <div class="blog-modal-content">
+      <button class="blog-modal-close" id="blogModalClose">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+      <div class="blog-modal-header">
+        <div class="blog-modal-meta">
+          <span class="blog-modal-category" id="blogModalCategory"></span>
+          <span class="dot"></span>
+          <time id="blogModalDate"></time>
+        </div>
+        <h2 class="blog-modal-title" id="blogModalTitle"></h2>
+      </div>
+      <div class="blog-modal-body" id="blogModalBody">
+        <!-- Blog content will be loaded here -->
+      </div>
+    </div>
+  </div>
 
-
-
-
-
-  <!--
-    - custom js link
-  -->
-  <script src="./assets/js/script.js"></script>
-
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="script.js"></script>
 
 </body>
-
 </html>
