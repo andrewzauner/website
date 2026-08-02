@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
       category: 'Finance',
       date: '2026-02-08',
       description:
-        'A reflection on Jerome Powell\s time as chairman of the Federal Reserve'
+        'A reflection on Jerome Powell\'s time as chairman of the Federal Reserve'
     },
     {
       slug: '2026.02.06_elevedys_and_duchenne',
@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     try {
       // Fetch the HTML for the post
-      const res = await fetch(`/posts/${post.slug}.html`);
+      const res = await fetch(`posts/${post.slug}.html`);
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}`);
       }
